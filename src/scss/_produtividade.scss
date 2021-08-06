@@ -1,0 +1,95 @@
+.previsto{
+    background: #40D698;
+    color: #FFFFFF;
+}
+
+.imprevisto{
+    background: #E2445C;
+    color: #FFFFFF;
+}
+
+.formatos{
+    background: #FFCB00;
+    color: #FFFFFF;
+}
+
+.redes{
+    background: #A25DDC;
+    color: #FFFFFF;
+}
+
+.direta{
+    background: #7E3B8A;
+    color: #FFFFFF;
+}
+
+.iab{
+    background: #ff642e;
+    color: #FFFFFF;
+}
+
+.adm{
+    background: #175a63;
+    color: #FFFFFF;
+}
+
+.painel{
+    background: #fdbc64;
+    color: #FFFFFF;
+}
+
+.recorrente, .ricardo{
+    background: #579BFC;
+    color: #FFFFFF;
+}
+
+.marcos{
+    background: #037F4C;
+    color: #FFFFFF;
+}
+
+.sessoeswrap{
+    flex:5 0 auto;
+}
+
+.sessoestitle{
+    font-size:10px;
+}
+
+.sessoes{
+    font-size:10px;
+    border:1px solid #AACB66;
+    border-radius: 3px;
+    width:150px;
+    float:left;
+    margin: 0 2px 2px 0;
+    padding:3px;
+    color: #FFF;
+    
+    .timestamp{
+        background-color: white;
+        font-size:10px;
+        color: #000;
+        padding:2px;
+        display: flex;
+        justify-content: space-between;
+
+        span{
+            padding:0 5px;
+        }
+    }
+
+    .duracao{
+        border-top:1px solid rgba(200, 200, 200, .5)
+    }
+
+    &:hover{
+        color:#000;
+        text-decoration: none;
+    }
+}
+
+// .sessoes:hover{
+//     background: #FFF;
+//     color: #666;
+// }
