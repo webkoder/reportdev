@@ -17,6 +17,8 @@ Falando em ReactJS, há uma implementação do React Context para disponiblizar 
 * [TODO](#todo)
 * [Tecnologias](#tecnologias)
 * [Instalação](#instalação)
+* [Criando uma página](#criando-uma-página)
+* [build](#build)
 * [O que está incluído](#o-que-está-incluído)
 * [Criador](#criador)
 
@@ -82,6 +84,14 @@ $ yarn start
 ```
 
 Navigate to [http://localhost:3000](http://localhost:3000). The app will automatically reload if you change any of the source files.
+
+### Criando uma página
+Abrir o arquivo **src/routes.js** e adicionar a rota na array de **routes** e fazer a importação do componente.
+
+Criar o componente (ou copiar outro componente) na pasta **src/views/dashboard/*<Componente>***
+
+Abrir o arquivo **src/containers/_nav.js** e adicionar na array _nav o item do menu lateral, onde **name** é o nome do componente
+
 
 ### Build
 

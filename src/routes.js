@@ -27,6 +27,7 @@ const Buttons = React.lazy(() => import('./views/buttons/buttons/Buttons'));
 const Charts = React.lazy(() => import('./views/charts/Charts'));
 
 const Dashboard = React.lazy(() => import('./views/dashboard/Dashboard'));
+const Diario = React.lazy(() => import('./views/dashboard/Diario'));
 const Items = React.lazy(() => import('./views/dashboard/Items'));
 const Sites = React.lazy(() => import('./views/dashboard/Sites'));
 const Campanhas = React.lazy(() => import('./views/dashboard/Campanhas'));
@@ -52,6 +53,7 @@ const User = React.lazy(() => import('./views/users/User'));
 const routes = [
   { path: '/', exact: true, name: 'Home' },
   { path: '/dashboard', name: 'Dashboard', component: Dashboard },
+  { path: '/diario', name: 'Diario', component: Diario },
   { path: '/items', name: 'Items', component: Items },
   { path: '/sites', name: 'Sites', component: Sites },
   { path: '/campanhas', name: 'Campanhas', component: Campanhas },

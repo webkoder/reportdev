@@ -10,6 +10,12 @@ const _nav =  [
   },
   {
     _tag: 'CSidebarNavItem',
+    name: 'Diario',
+    to: '/diario',
+    icon: <CIcon name="cil-speedometer" customClasses="c-sidebar-nav-icon"/>
+  },
+  {
+    _tag: 'CSidebarNavItem',
     name: 'Items',
     to: '/items',
     icon: <CIcon name="cil-speedometer" customClasses="c-sidebar-nav-icon"/>
