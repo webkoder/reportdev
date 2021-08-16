@@ -59,6 +59,10 @@ const Diario = () => {
     return hms( _diff/1000 )
   }
 
+  // TODO quando não houver nenhuma atividade, colocar mensagem
+  // TODO Alterar visual do card das atividades atuais
+  // TODO colocar as atividades do dia atual também
+
   return (
     <>
 
