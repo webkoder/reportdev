@@ -1,6 +1,6 @@
-import React, { lazy, useState, useEffect, useContext } from 'react'
+import React, { useState, useEffect, useContext } from 'react'
 import AppContext from 'src/services/AppContext.js'
-import { getLastWorkday, dateformat, hms } from 'src/reusable/funcoes'
+import { getLastWorkday, dateformat, hms, getMes } from 'src/reusable/funcoes'
 import {
   CCard,
   CCardBody,
@@ -10,10 +10,7 @@ import {
   CBadge,
   CProgress
 } from '@coreui/react'
-import { TIPOS, DEVLIST } from 'src/constants.js'
 import { SessionOrderService } from '../../services/SessionOrderService'
-
-const SummaryWidget = lazy(() => import('../widgets/SummaryWidget.js'))
 
 const Diario = () => {
   const [ now, setNow ] = useState(new Date());
@@ -24,16 +21,25 @@ const Diario = () => {
     }, 1000 )
   }, [])
 
-  const tech = useContext( AppContext ).meta.tech;
-
   let meta = useContext( AppContext ).meta;
   let lastday = getLastWorkday();
+
+  let today = [];
+  let todaydate = new Date()
+  let todaydatef = `${todaydate.getDate()} / ${getMes(todaydate.getMonth())}`
 
   let lastdaySession = meta.devscode.map( devcode => {
     let dev = meta.devs[ devcode ];
     let dias = dev.lista.dias;
     let sessions = new SessionOrderService()
     sessions.extractSessionsByDays( dias )
+
+    // aproveitar o loop e pegar as atividades de hoje
+    today.push( {
+        "name": dev.name,
+        "list": sessions.days[ todaydate.getDate() ],
+        "total": dev.lista.dias[ todaydate.getDate() ].total
+    })
 
     return {
       "name": dev.name,
@@ -45,7 +51,7 @@ const Diario = () => {
 
   let current = meta.devscode.map( devcode => {
     let dev = meta.devs[ devcode ];
-    if( dev.atuais.length == 0 ) return null;
+    if( dev.atuais.length === 0 ) return null;
 
     return {
       "name": dev.name,
@@ -61,17 +67,16 @@ const Diario = () => {
 
   // TODO quando não houver nenhuma atividade, colocar mensagem
   // TODO Alterar visual do card das atividades atuais
-  // TODO colocar as atividades do dia atual também
 
   return (
     <>
 
       <h3>Atividades Atuais</h3>
+      <CRow>
 
       {
         current.map( list => (
           <>
-            <CRow>
               <CCol md='4'>
               <CCard>
                 <CCardHeader>
@@ -101,8 +106,87 @@ const Diario = () => {
               </CCardBody>
               </CCard>
               </CCol>
-            </CRow>
           </>
+        ))
+      }
+      </CRow>
+
+
+      <h3>Atividades de {todaydatef}</h3>
+      {
+        today.map( _today => (
+          
+            <CRow>
+              <CCol>
+                <CCard>
+                <CCardHeader>
+                { _today.name }
+                </CCardHeader>
+                <CCardBody>
+                <CRow>
+                  <CCol md="10">
+                    <div className="progress-group mb-4">
+                      <div className="progress-group-prepend">
+                        <span className="progress-group-text">
+                          <CBadge color={ _today.tempo === 0 ? "danger" : "success"}>{ _today.dia }</CBadge>
+                          <br /> <b>{ _today.diasemana }</b><br />
+                        </span>
+                      </div>
+                      <div className="progress-group-prepend">
+                        <span className="progress-group-text">
+                        </span>
+                      </div>
+                      <div className="progress-group-bars">
+                      <div className="clearfix">
+                          <div className="float-left">
+                            <strong>{ _today.total.percent } %</strong>
+                          </div>
+                          <div className="float-right">
+                            <small className="text-muted">{ _today.total.tempo }</small>
+                          </div>
+                        </div>
+                        <CProgress className="progress-xs" 
+                          color={ _today.total.diffclass }
+                          value={ _today.total.percent } />
+                      </div>
+                    </div>
+                  </CCol>
+                  <CCol md="2">
+                      <CBadge color={ _today.total.diffclass }>{ _today.total.diff }</CBadge> &nbsp; 
+                      <br />
+                      { _today.total.items } { _today.total.items > 1 ? "itens concluídos" : "item concluído" } 
+                  </CCol>
+                </CRow>
+
+                <CRow>
+                  <CCol md='12'>
+                  <div className="sessoeswrap">
+                    { _today.list.map( session => (
+                        <a href={`https://nobeta.monday.com/boards/316368019/views/6997054/pulses/${session.itemid}`}
+                          title={session.item} className={`sessoes ${session.status.toLowerCase()}`} target="blank">
+                              <div className="timestamp">
+                                <span>
+                                  {session.horainicio}
+                                </span>
+                                <span>
+                                  {session.horafim}
+                                </span>
+                              </div>
+                              {session.item.substring(0, 28)}
+                              <div className="duracao">
+                                  duração: {session.duracaotempo}
+                              </div>
+                          </a>
+                      ))
+                    }
+                  </div>
+                    </CCol>
+                  </CRow>
+              
+                </CCardBody>
+              </CCard>
+            </CCol>
+          </CRow>
         ))
       }
 

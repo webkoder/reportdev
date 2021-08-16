@@ -46,7 +46,7 @@ export class SessionOrderService{
 
     fomatter(){
         this.days.forEach( dia => {
-            dia.map( sessao => {
+            dia.forEach( sessao => {
                 sessao.horainicio = dateformat( sessao.ini )
                 sessao.horafim = dateformat( sessao.end )
             })

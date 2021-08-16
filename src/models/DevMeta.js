@@ -82,7 +82,7 @@ export default class DevMeta{
         let _teto = 0;
 
         // Para cada Dev ...
-        this.devscode.map( item => {
+        this.devscode.forEach( item => {
             // ... Setar o default do resumo
             this.devs[ item ].resumo.setProdutividadeDefault(
                 this.devs[item].lista.final,

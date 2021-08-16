@@ -25,10 +25,10 @@ Falando em ReactJS, há uma implementação do React Context para disponiblizar 
 ## TODO
 
 - [x] Preparar e fazer deploy teste projeto no GitHub
-- [ ] Adicionar tela diária, com dados do dia anterior (para as dailys)
+- [x] Adicionar tela diária, com dados do dia anterior (para as dailys)
 - [ ] Adicionar um indicador da tarefa atual + horas trabalhadas no dia
 - [ ] Sincronizar os dados com banco de dados via API
-- [ ] Adicionar um arquivo de configuração para dados sensiveis (base de url, token do monday)
+- [x] Adicionar um arquivo de configuração para dados sensiveis (base de url, token do monday)
 - [ ] Ao recarregar a página fora da home "/dashboard" causa um erro de falta de dados, verificar se os dados existe, em caso negativo, ou manda para home ou tenta recarregar as informações
 - [ ] Login e senha dinamico
 - [ ] Campanhas, Feriados, hightlights e outros itens que pode ser dinamicos
