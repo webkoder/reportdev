@@ -90,15 +90,31 @@ export function hms (intvalue) {
     return hours+':'+minutes+':'+seconds;
 }
 
-export function dateformat( data ){
+export function dateformat( data, withseconds = false ){
     let hour = ( data.getHours() < 10 ) ? '0' + data.getHours() : data.getHours()
     let minute = ( data.getMinutes() < 10 ) ? '0' + data.getMinutes() : data.getMinutes()
     let seconds = ( data.getSeconds() < 10 ) ? '0' + data.getSeconds() : data.getSeconds()
 
-    // return `${hour}:${minute}:${seconds}`;
-    return `${hour}:${minute}`;
+    // return ;
+    return withseconds ? `${hour}:${minute}:${seconds}` : `${hour}:${minute}`;
 }
 
 export function newKey(){
     return Math.random().toString(36).substring(2, 4) + Math.random().toString(36).substring(2, 6)
+}
+
+/**
+ * Pegar o ultimo dia útil
+ */
+export function getLastWorkday(){
+    let day = new Date()
+    let last = 1;
+    if( day.getDay() === 0) // se domingo, voltar 2 dias
+        last = 2
+    if( day.getDay() === 1) // se segunda, voltar 3 dias
+        last = 3
+
+    day.setDate( day.getDate() - last)
+
+    return {"date": day.getDate(), "datef": `${day.getDate()} / ${getMes(day.getMonth())}`}
 }

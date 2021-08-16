@@ -52,6 +52,7 @@ export default class ProdutividadeProcess{
             "status": item.column_values.filter( i => i.id==="status5")[0].text,
         };
         let sessoes = [];
+        let atuais = [];
         if(o.tempo !== null){
             if( o.tempo.additional_value !== undefined ){
                 // TODO Encontrar a atividade corrente
@@ -72,31 +73,37 @@ export default class ProdutividadeProcess{
                             duracao: 0,
                             duracaotempo: ""
                         };
-                        t.duracao = (t.end.getTime() - t.ini.getTime()) / 1000;
-                        if( t.duracao < 0 ) continue;
-                        t.duracaotempo = hms(t.duracao);
                         t.dia = ini.getDate();
                         t.base = this.calculaBase( ini.getDate(), t.dev );
+                        t.duracao = (t.end.getTime() - t.ini.getTime()) / 1000;
+                        if( t.duracao < 0 ){
+                            atuais.push( t );
+                            continue;
+                        }
+                        t.duracaotempo = hms(t.duracao);
                         sessoes.push(t);
                     }
                 }
             }
         }
 
-        return sessoes;
+        return {sessoes, atuais};
     }
 
     processItems(groups){
         
         let sessoes = [];
+        let atuais = [];
 
         for (const group of groups) {
             for (const item of group.items) {
-                sessoes = sessoes.concat( this.toObject(item) );
+                let _sessoes = this.toObject(item);
+                sessoes = sessoes.concat( _sessoes.sessoes );
+                atuais = atuais.concat( _sessoes.atuais );
             }
         }
 
-        return sessoes ;
+        return {sessoes, atuais} ;
     }
 
 }

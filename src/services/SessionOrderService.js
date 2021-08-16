@@ -10,6 +10,12 @@ export class SessionOrderService{
         this.days = []
     }
 
+    // TODO talvez dividir o metodo extractSessionsByDays e criar um
+    // metodo para ordernar apenas um dia e usar no componente diário
+    // em vez de ordernar todos e extrair a data necessária
+    // ou talvez ainda deixar as sessões ordenada por padrão quando
+    // os dias são setados...
+
     /**
      * Extrai todas as sessões pela lista de dias
      * @param {array} dias Lista de dias com o padrão do component Dev

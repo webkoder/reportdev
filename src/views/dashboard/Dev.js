@@ -39,6 +39,8 @@ const Dev = ({match}) => {
   //   console.log( day, sessions.days[day])
   // })
   
+  // TODO Verificar e refatorar alguns elementos em componentes
+  // para ser usado na tela "Diario"
   return (
     <>
       <h1>

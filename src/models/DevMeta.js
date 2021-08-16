@@ -66,7 +66,8 @@ export default class DevMeta{
             dev[ code ] = {
                 name: _name,
                 resumo: new ResumoProdutividade( _name ),
-                lista: new MonthDays( this.mes, this.ano, code )
+                lista: new MonthDays( this.mes, this.ano, code ),
+                atuais: []
             }
         }
         return dev;
@@ -165,12 +166,14 @@ export default class DevMeta{
      * @param {array} data lista de grupo com itens de produtividade
      */
     setTimeControlData( data ){
-        let sessoes = new ProdutividadeProcess(this.mes, this.ano);
-        // let mesatual = sessoes.currentMonth;
-        sessoes = sessoes.processItems( data );
+        let sessoes = new ProdutividadeProcess(this.mes, this.ano)
+        // processa e retorna array com as sessões calculadas e atividades atuais
+        sessoes = sessoes.processItems( data )
+        let atuais = sessoes.atuais
+        sessoes = sessoes.sessoes
         
         for (const s of sessoes) {
-            
+
             // campos seletores
             let _ano = s.ini.getFullYear();
             let _mes = s.ini.getMonth();
@@ -220,6 +223,7 @@ export default class DevMeta{
         this.tech.produtividade.executado.formatted = hms(this.tech.produtividade.executado.value);
         this.tech.produtividade.acumulado.formatted = hms(this.tech.produtividade.acumulado.value);
 
+        atuais.map( sessao => this.devs[ sessao.dev ].atuais.push( sessao ) )
     }
 
     setBacklogItemsData( data ){
